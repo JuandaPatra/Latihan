@@ -1,0 +1,66 @@
+<script>
+    let bajuKoko = 70000
+        bajuBola = 60000
+        bajuPolos = 50000
+        bajuStrip = 65000
+
+        stokBako = 5
+        stokBabo = 3
+        stokBapo =4
+        stokBast =6
+
+    let Harga =((koko*bajuKoko)+(bola*bajuBola)+(polos*bajuPolos)+(strip*bajuStrip))
+
+while (true){
+    var koko =+prompt('Silahkan dibeli Baju Koko 1 pcs = 70000 kak, \n Stok Tersedia 5')
+    if(koko>stokBako){
+        alert('Silahkan dipilih sesuai stok ya kak')
+    }else{
+        break
+    }
+}
+
+while(true){
+    var bola =+prompt(`silahkan dibeli Baju Bola 1 pcs Rp${bajuBola}, \n Stok Tersedia ${stokBabo}`)
+    if(bola > stokBabo){
+        alert('silahkan dipilih sesuai stok ya kak')
+    } else{
+        break
+    }
+}
+while(true){
+    var polos =+prompt(`silahkan dibeli baju polos 1 pcs =${bajuPolos}, \n Stok Tersedia ${stokBapo}`)
+    if (polos>stokBapo){
+        alert('silahkan dipilih sesuai stok ya kak')
+    } else{
+        break
+    }
+}
+while(true){
+    var strip =+prompt(`silahkan dibeli baju polos 1 pcs =${bajuStrip}, \n Stok Tersedia ${stokBast}`)
+    if (strip>stokBast){
+        alert('silahkan dipilih sesuai stok ya kak')
+    } else{
+        break
+    }
+}
+alert(`Total Belanjaan Anda, Silahkan masukkan uang anda
+    1. Baju Koko ${koko} x Rp${bajuKoko.toLocaleString()} = Rp ${(koko*bajuKoko).toLocaleString()}
+    2. Baju Bola ${bola} x Rp ${bajuBola.toLocaleString()} = Rp ${(bola*bajuBola).toLocaleString()}
+    3. Baju Polos ${polos} x Rp${bajuPolos.toLocaleString()} = Rp${(polos*bajuPolos).toLocaleString()}
+    3. Baju Strip ${strip} x Rp${bajuStrip.toLocaleString()} = Rp${(strip*bajuStrip.toLocaleString())}
+    Total Belanjaan Anda adalah Rp${Harga}`)
+
+while (true){
+    var bill =+prompt((`Masukkan Uang anda di mesin yang sudah disediakan`).toLocaleString())
+    if (bill<Harga){
+        alert(`Silahkan masukkan uang kembali uang anda ${Harga}`)
+    } else if (bill==Harga) {
+        alert('Terimaksih')
+        break
+    } else if (bill>Harga){
+        alert(`silahkan ambil kembalian anda sebesar ${Harga-bill}`)
+    }break
+}
+
+</script>

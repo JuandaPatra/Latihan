@@ -1,0 +1,190 @@
+<script>
+    
+    var stok =5
+
+        arrayBuah = [['apel',10000,10],['anggur',15000,10],['jeruk',20000,6],['nanas',6000,4]]
+
+        cart=[]
+
+        totalPrice =0
+
+        let showList = () =>{
+            let infoB = ('Info Stok Buah \n')
+            arrayBuah.forEach((item, index) => {
+                infoB +=`${index+1}. ${item[0]} Rp${item[1]} sebanyak ${item[2]}\n `
+                
+            });
+            return infoB
+        }
+
+        let showCart = () =>{
+            let keranjang =`Daftar keranjang Anda : \n`
+            cart.forEach((item, index) =>{
+                keranjang += `${index+1}. ${item[0]},Rp${item[1].toLocaleString()} x ${(item[1]*item[2]).toLocaleString()}\n`
+             })
+             keranjang += `Total belanja anda  Rp${totalPrice.toLocaleString()}\n`
+
+             return keranjang
+        }
+        
+    
+    while (true){
+    
+                                            //Front Page
+        var inputB =+prompt(`masukkan data
+        1. Menampilkan daftar buah2
+        2. Menambah buah
+        3. Menghapus buah
+        4. Membeli buah
+        5. Exit`)
+        if (inputB>stok){                   // Jika memasukkan angka selain 1-5
+            alert('Angka yang kamu masukkan salah')
+        }else if(inputB==1){                // Jika dipilih angka 1
+            
+       
+            // let infoB = ('Info Stok Buah \n')
+            // arrayBuah.forEach((item, index) => {
+            //     infoB +=`${index+1}. ${item[0]} Rp${item[1]} sebanyak ${item[2]}\n `
+                
+            // });
+            let infoB =showList()
+
+            alert(infoB)
+        }
+        // Menambahkan Buah 
+        else if(inputB==2){  // Jika dipilih angka 2 
+            var newArreyBuah =[]
+        
+                var inputBuahBaru =prompt('Mau menambahkan buah apa')
+                newArreyBuah.push(inputBuahBaru)
+                if (!inputBuahBaru){
+                    alert('Tolong input kembali data yang kamu masukkan salah')
+                }
+                var inputHargaBaru = +prompt ('Masukkan Harganya')
+                newArreyBuah.push(inputHargaBaru)
+                if (!inputHargaBaru){
+                    alert('Tolong input kembali data yang kamu masukkan salah')
+                }
+                var inputStokBaru = +prompt('Berapa stok yang ingin ditambahkan')
+                newArreyBuah.push(inputStokBaru)
+                if (!inputStokBaru){
+                    alert('Tolong input kembali data yang kamu masukkan salah')
+                }
+            alert(`Baik akan segera kami input`)
+           
+
+        } else if(inputB==3){  //Jika dipilih angka 3
+            let infoB =showList()
+            infoB+=`Buah No berapa yang ingin dihapus`
+
+            
+
+            let index =prompt(infoB)
+            arrayBuah.splice(index-1,1)
+            alert(`Buah ${index} sudah dihapuss`)
+              
+
+        }else if(inputB==4){
+            while (true){
+            let infoB =showList()
+            infoB+=`Buah No berapa yang ingin dibeli`
+
+            let index =+prompt(infoB)
+            while (true) {
+                    // minta user untuk menentukan qty pembelian produk
+                    let qty = prompt(`Berapa ${arrayBuah[index - 1][0]} yang ingin Anda beli? *Stok = ${arrayBuah[index - 1][2]}`)
+
+                    if (qty > arrayBuah[index - 1][2]) {
+                        // kalau qty melebihi stok, maka akn muncul alert, kemudian kembali lagi meminta qty
+                        alert('Quantity melebihi stok produk, mohon input sesuai stok yang ada')
+                    } else if (qty <= arrayBuah[index - 1][2]) {
+                        // kalau qty sesuai stok, data buah dimasukan ke dalam cart
+                        
+                        let ind = null
+                        cart.forEach((item,indexCart)=>{
+                            if (item[0]===arrayBuah[index-1][0]){
+                                ind = indexCart
+
+                            }
+                        })
+                        if (ind===null){
+                            cart.push([arrayBuah[index - 1][0], arrayBuah[index - 1][1], qty])
+                        } else {
+                            let temp = cart[ind][2]+qty
+                            cart[ind][2] = temp
+                        }
+                        
+                        let count =0
+                        cart.forEach(item =>{
+                            count += item[1]*item[2]
+                        })
+                        totalPrice =count
+
+                        // untuk menghitung total price
+                        // totalPrice += arrayBuah[index - 1][1] * qty
+
+                        alert(`Buah ${arrayBuah[index - 1][0]} sudah dimasukan ke dalam keranjang`)
+
+                        // setiap berhasil menambah kan barang ke cart, maka akan muncul isi cart
+                        // let keranjang =`Daftar keranjang Anda : \n`
+                        // cart.forEach((item, index) =>{
+                        //     keranjang += `${index+1}. ${item[0]},Rp${item[1].toLocaleString()} x ${(item[1]*item[2]).toLocaleString()}\n`
+                        // })
+                        
+
+                        // let keranjang = 'Daftar keranjang Anda: \n'
+                        // for (let i = 0; i < cart.length; i++) {
+                        //     keranjang += `${i + 1}. ${cart[i][0]}, Rp${cart[i][1].toLocaleString()} x ${cart[i][2]} = Rp${(cart[i][1] * cart[i][2]).toLocaleString()}\n`
+                        // }
+                        // keranjang += `Total belanja Anda = Rp${totalPrice.toLocaleString()}`
+                        let keranjang =showCart()
+                        alert(keranjang)
+                        break
+                    }
+                } 
+                // konfirmasi ke user, apakah ingin membeli buah lagi
+                let konfirmasi = confirm('Apakah Anda mau membeli buah yang lain?')
+
+                // kalau user sudah selesai membeli buah, maka looping pembelian buah akan berhenti, dan lanjut ke proses payment
+                if (!konfirmasi) break
+                
+            }
+            while (true) {
+                // untuk menampilkan isi keranjang sekaligus meminta input nominal pembayaran
+                // let keranjang = 'Daftar keranjang Anda: \n'
+                // for (let i = 0; i < cart.length; i++) {
+                //     keranjang += `${i + 1}. ${cart[i][0]}, Rp${cart[i][1].toLocaleString()} x ${cart[i][2]} = Rp${(cart[i][1] * cart[i][2]).toLocaleString()}\n`
+                // }
+                // keranjang += `Total belanja Anda = Rp${totalPrice.toLocaleString()}\nTolong input nominal untuk pembayaran:`
+                let keranjang =showCart()
+                keranjang += 'Tolong input nominal untuk pembayaran'
+                
+                let nominal = +prompt(keranjang)
+
+                if(nominal < totalPrice) {
+                    // kalau uang nya kurang
+                    alert(`Mohon input nilai yang sesuai dengan total belanja yaitu Rp${totalPrice.toLocaleString()}`)
+                } else if (nominal === totalPrice) {
+                    // kalau uang nya pas maka looping payment stop
+                    alert('Terima Kasih! Pesanan Anda akan segera diantar')
+                    break
+                } else if (nominal > totalPrice) {
+                    // kalau uang ya lebih maka looping payment stop dan diinformasikan kembalian nya
+                    alert(`Terima kasih! Uang kembalian Anda Rp${(nominal - totalPrice).toLocaleString()}\nPesanan Anda akan segera diantar`)
+                    break
+                }
+            }
+           
+
+        }
+        else if(inputB==5){  //Jika dipilih angka 5
+            alert('Terimakasih sudah berbelanja')
+            break
+            
+        }
+        else if(inputB<stok){
+            break
+        }
+   
+    }
+</script>
